@@ -36,5 +36,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: libseccomp
-        path: ${GITHUB_WORKSPACE}/out
+        path: ${{ github.workspace }}/out
         retention-days: 7 
