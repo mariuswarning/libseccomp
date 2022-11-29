@@ -24,19 +24,26 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Initialize libseccomp
+      uses: ./.github/actions/setup
+
     - name: Install Cross Toolchain
       run: |
         sudo apt update
         sudo apt install -y libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc gcc-arm-linux-gnueabihf
-        export CC=arm-linux-gnueabihf-gcc
-    - name: Initialize libseccomp
-      uses: ./.github/actions/setup
+    
     - name: configure
-      run: ./configure --build=x86_64 --host=arm --prefix=${GITHUB_WORKSPACE}/${{ matrix.arch }}/out
+      run: |
+        export CC=arm-linux-gnueabihf-gcc
+        ./configure --build=x86_64 --host=arm --prefix=${GITHUB_WORKSPACE}/${{ matrix.arch }}/out
+    
     - name: make
       run: make
+    
     - name: make install
       run: make install
+    
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
