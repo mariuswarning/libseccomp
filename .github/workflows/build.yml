@@ -28,17 +28,7 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc gcc-arm-linux-gnueabihf
-        echo "########################"
-        ls -a
-        echo "########################"
-        whereis gcc-arm-linux-gnueabi
-        echo "########################"
-        whereis gcc-arm-linux-gnueabihf
-        echo "########################"
-        whereis arm-linux-gnueabi-gcc
-        echo "########################"
-        whereis arm-linux-gnueabihf-gcc
-        gcc-arm-linux-gnueabihf --version
+        export CC=arm-linux-gnueabihf-gcc
     - name: Initialize libseccomp
       uses: ./.github/actions/setup
     - name: configure
