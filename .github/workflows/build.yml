@@ -8,25 +8,61 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  prepare:
     strategy:
       fail-fast: false
           
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
     - name: Initialize libseccomp
       uses: ./.github/actions/setup
     - name: configure
-      run: ./configure --build=x86_64-unknown-linux --host=arm-linux-gnueabihf
+      run: ./configure --build=x86_64-unknown-linux --host=arm-linux-gnueabihf --prefix=${BUILD_OUTPUT}/out
+    
+  build:
+
+    strategy:
+      fail-fast: false
+          
+    runs-on: ubuntu-latest
+    
+    needs:
+      - prepare
+
+    steps:
     - name: make
       run: make
+      
+  
+  test:
+    strategy:
+      fail-fast: false
+          
+    runs-on: ubuntu-latest
+  
+    needs:
+      - build
+      
+    steps:
     - name: make check
       run: make check
+  
+  upload:
+    strategy:
+      fail-fast: false
+          
+    runs-on: ubuntu-latest
+  
+    needs:
+      - test
+  
+    steps:
     - name: Upload
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3.1.1
       with:
+        name: libseccomp
+        path: ${BUILD_OUTPUT}/out
         retention-days: 7 
