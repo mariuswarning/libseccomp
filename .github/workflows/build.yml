@@ -27,7 +27,7 @@ jobs:
     - name: Install Cross Toolchain
       run: |
         sudo apt update
-        sudo apt install -y libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc gcc-11-arm-linux-gnueabihf
+        sudo apt install -y libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi libncurses5-dev build-essential bison flex libssl-dev bc gcc-arm-linux-gnueabihf
         echo "########################"
         ls -a
         echo "########################"
