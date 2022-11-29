@@ -21,7 +21,7 @@ jobs:
     - name: Initialize libseccomp
       uses: ./.github/actions/setup
     - name: configure
-      run: ./configure --build=x86_64-unknown-linux --host=arm-linux-gnueabihf
+      run: ./configure --build=x86_64-unknown-linux --host=arm-linux-gnueabihf --prefix=${BUILD_OUTPUT}/out
     - name: make
       run: make
     - name: make check
@@ -29,4 +29,6 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
+        name: libseccomp
+        path: ${BUILD_OUTPUT}/out
         retention-days: 7 
