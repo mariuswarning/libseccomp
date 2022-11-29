@@ -28,11 +28,8 @@ jobs:
       run: |
         sudo apt update
         sudo apt install libc6-armel-cross libc6-dev-armel-cross binutils-arm-linux-gnueabi build-essential
-        export CC=$(whereis arm-linux-gnueabi-gcc)
-        export CCTEST=$(whereis arm-linux-gnueabihf-gcc)
         echo "We are here"
-        echo "$CC"
-        echo "$CCTEST"
+        echo "$(find .. -iname "*gcc*")"
     - name: Initialize libseccomp
       uses: ./.github/actions/setup
     - name: configure
