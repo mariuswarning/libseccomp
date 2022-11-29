@@ -27,7 +27,7 @@ jobs:
     - name: Initialize libseccomp
       uses: ./.github/actions/setup
     - name: configure
-      run: ./configure --build=x86_64-unknown-linux --host=arm-linux-gnueabihf --prefix=${GITHUB_WORKSPACE}/out
+      run: ./configure --build=x86_64-unknown-linux --host=arm-linux-gnueabihf --prefix=${GITHUB_WORKSPACE}/${{ matrix.arch }}/out
     - name: make
       run: make
     - name: make install
@@ -36,5 +36,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: libseccomp
-        path: ${{ github.workspace }}/out
+        path: ${{ github.workspace }}/${{ matrix.arch }}/out
         retention-days: 7 
