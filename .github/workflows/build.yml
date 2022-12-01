@@ -43,6 +43,17 @@ jobs:
     
     - name: make install
       run: make install
+      
+    - name: Build Debian Package
+      uses: jiro4989/build-deb-action@v2
+      with:
+        package: libseccomp
+        package_root: ${{ github.workspace }}/${{ matrix.arch }}/out
+        maintainer: WAGO
+        version: ${{ github.ref }} # refs/tags/v*.*.*
+        arch: ${{ matrix.arch }}
+        depends: 'libc6 (>= 2.2.1), git'
+        desc: 'WAGO libseccomp'
     
     - name: Upload
       uses: actions/upload-artifact@v3
